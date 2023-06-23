@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo/pages/third_pg.dart';
+
+import 'new_third.dart';
 
 class addTask extends StatefulWidget {
   const addTask({super.key});
@@ -8,7 +11,18 @@ class addTask extends StatefulWidget {
 }
 
 class _addTaskState extends State<addTask> {
-  
+  List<IconData> icons = [
+    Icons.person,
+    Icons.edit_note,
+    Icons.three_p,
+    Icons.info
+  ];
+  List<String> title = [
+    "Profile",
+    "Details",
+    "About Us",
+    "Help"
+  ];
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -23,7 +37,7 @@ class _addTaskState extends State<addTask> {
                 alignment: Alignment.topLeft,
                 child: Center(
                   child: Text(
-                    'Centered Text',
+                    "Todo App",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -32,65 +46,39 @@ class _addTaskState extends State<addTask> {
             SizedBox(
               height: 25,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-              onPressed: (){
-              print("hello");
-            }, icon: Icon(Icons.person)),
-            Text("Profile"),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-              onPressed: (){
-              print("hello");
-            }, icon: Icon(Icons.edit_note)),
-            Text("Details"),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-              onPressed: (){
-              print("hello");
-            }, icon: Icon(Icons.three_p)),
-            Text("About Us"),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-              onPressed: (){
-              print("hello");
-            }, icon: Icon(Icons.info)),
-            Text("Help"),
-              ],
+            Container(
+              height: 500,
+              child: ListView.builder(
+                itemCount: icons.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Icon(icons[index]), // Icon from the icons list
+                    title: Text(title[index]), // Title from the titles list
+                    onTap: () {
+                      if (title[index] == "Profile"){
+                        print("${title[index]} was hit ");
+                      }
+                      else if (title[index] == "Details"){
+                        print("${title[index]} i.e Details was hit");
+                      }
+                      else if(title[index] == "About Us"){
+                        print("${title[index]}  was hit");
+                      }
+                      else if(title[index] == "Help"){
+                        print("${title[index]}  was hit");
+                      }
+                    },
+                  );
+                },
+              ),
             ),
             
-            // SizedBox(
-            //   height: 25,
-            // ),
-            // Text("Details"),
-            // SizedBox(
-            //   height: 25,
-            // ),
-            // Text("About Us"),
-            // SizedBox(
-            //   height: 25,
-            // ),
-            // Text("Help"),
             
           ]),
       ),
       appBar: AppBar(
         centerTitle: true,
-        title: Text('My App'),
+        title: Text('Todo App'),
         // Add the leading icon/button to open the drawer
         leading: Builder(
           builder: ((context) => IconButton(
@@ -99,7 +87,23 @@ class _addTaskState extends State<addTask> {
           )
         )
       ),
-      )  
+      ),
+      bottomNavigationBar:  CircleAvatar(
+        radius: 20,
+        child: Center(
+          child: Builder(
+          builder:((context)=> IconButton(
+            onPressed: (){
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => taskForm()),
+            );
+            },
+            icon: Icon(Icons.add))
+          ),
+          )
+        ),
+      ),  
     );
   }
 }
