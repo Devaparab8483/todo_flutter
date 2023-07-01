@@ -3,12 +3,15 @@ import 'package:todo/models/tasks_models.dart';
 import 'package:todo/pages/add_task.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:android_alarm_manager/android_alarm_manager.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter(todoTaskModelAdapter());
   await Hive.openBox<todoTaskModel>('todo');
+  await AndroidAlarmManager.initialize();
   runApp(const MyApp());
 }
 
